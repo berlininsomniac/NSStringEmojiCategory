@@ -101,11 +101,11 @@
 {
 	NSMutableString *stringByStrippingEmojis = [self mutableCopy];
 	
-	NSArray<NSTextCheckingResult *> *matches = [[NSString emojiRegex] matchesInString:stringByStrippingEmojis options:0 range:NSMakeRange(0, [stringByStrippingEmojis length])];
+	NSArray<NSValue *> *matches = [stringByStrippingEmojis emojiRanges];
 
-	for (NSTextCheckingResult *match in matches.reverseObjectEnumerator)
+	for (NSValue *match in matches.reverseObjectEnumerator)
 	{
-		[stringByStrippingEmojis replaceCharactersInRange:match.range withString:@""];
+		[stringByStrippingEmojis replaceCharactersInRange:match.rangeValue withString:@""];
 	}
 	
 	return [NSString stringWithString:stringByStrippingEmojis];

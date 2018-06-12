@@ -48,10 +48,11 @@
 		[unicodeRanges addObject:@"\U0001F170\U0001F171\U0001F17E\U0001F17F\U0001F18E\U0001F004\U0001F201\U0001F202\U00003030"]; // Items not fitting in ranges (continued)
 		[unicodeRanges addObject:@"\U0000303D\U00003297\U00003299\U00002934\U00002935\U00002B05\U00002B06\U00002B07\U00002B1B"]; // Items not fitting in ranges (continued)
 		[unicodeRanges addObject:@"\U00002B1C\U00002B50\U00002B55\U0001F21A\U0001F22F\U0001F250\U0001F251"]; // Items not fitting in ranges (continued)
-		[unicodeRanges addObject:@"[(\\*|\\#|0-9)\U000020E3]"]; // Number values suffixed with a keycap. Yeah. Exactly.
 		[unicodeRanges addObject:@"\U0000200D"]; // Non-breaking space
 
-		_emojiRegexString = [NSString stringWithFormat:@"[%@]+", [unicodeRanges componentsJoinedByString:@""]];
+		NSString *modifiedKeyCaps = @"[\\*#0-9](?:.)?\U000020E3"; // Number values suffixed with a keycap. Yeah. Exactly.
+
+		_emojiRegexString = [NSString stringWithFormat:@"[%@]+|(?:%@)+", [unicodeRanges componentsJoinedByString:@""], modifiedKeyCaps];
 	});
 	
 	return _emojiRegexString;
